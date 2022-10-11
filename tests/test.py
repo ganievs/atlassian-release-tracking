@@ -5,9 +5,9 @@ from typing import Final
 
 class Settings:
     JIRA_CORE_URL: Final[
-        str] = "https://raw.githubusercontent.com/ganievs/atlasian-release-tracking/feature/tests/data/jira-core.json"
+        str] = "https://raw.githubusercontent.com/ganievs/atlasian-release-tracking/main/data/jira-core.json"
     JIRA_CORE_REVOKED_URL: Final[
-        str] = "https://raw.githubusercontent.com/ganievs/atlasian-release-tracking/feature/tests/data/jira-core-revoked.json"
+        str] = "https://raw.githubusercontent.com/ganievs/atlasian-release-tracking/main/data/jira-core-revoked.json"
     JIRA_SOFTWARE_URL: Final[
         str] = "https://raw.githubusercontent.com/ganievs/atlasian-release-tracking/main/data/jira-software.json"
 

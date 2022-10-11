@@ -19,7 +19,10 @@ def dummy():
 
 @app.post("/", status_code=201)
 def proceed_url(payload: Url):
-    data = parse_url(payload.url)
+    try:
+        data = parse_url(payload.url)
+    except Exception:
+        raise HTTPException(status_code=400, detail="Invalid data")
     name = payload.product
     version = version_compare(data)
     resp = check_version(name, version, settings.database_url)
