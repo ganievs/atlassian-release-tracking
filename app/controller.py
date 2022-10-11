@@ -28,7 +28,7 @@ def check_version(name: str, version: str, database: str) -> str:
     with sqlite3.connect(database) as cur:
         cur.execute('INSERT OR IGNORE INTO Application VALUES(?, ?)',
                     (name, "0.0.0"))
-    with sqlite3.connect(database) as cur:
+        cur.commit()
         current_ver = cur.execute(
             f'SELECT version from Application where name="{name}"').fetchone(
             )[0]
