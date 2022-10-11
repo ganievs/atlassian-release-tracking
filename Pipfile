@@ -9,6 +9,9 @@ fastapi-sqlalchemy = "*"
 pydantic = "*"
 alembic = "*"
 uvicorn = {extras = ["standard"], version = "*"}
+pytest = "*"
+requests = "*"
+pytest-alembic = "*"
 
 [dev-packages]
 python-dotenv = "*"
