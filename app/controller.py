@@ -2,16 +2,12 @@ import json
 import sqlite3
 import urllib.request
 from pkg_resources import parse_version
-from app.db import db_ops
 
 
 def parse_url(url: str) -> list:
-    try:
-        data = urllib.request.urlopen(url).read()
-        return json.loads(
-            data.decode("utf-8").lstrip('downloads(').rstrip(')'))
-    except:
-        raise
+    data = urllib.request.urlopen(url).read()
+    return json.loads(
+        data.decode("utf-8").lstrip('downloads(').rstrip(')'))
 
 
 def version_compare(payload: list) -> str:
