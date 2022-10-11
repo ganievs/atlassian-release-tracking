@@ -11,9 +11,6 @@ def parse_url(url: str) -> list:
     except:
         raise
 
-def get_product(url: str) -> str:
-    return url.lstrip('https://upload.almworks.com/tasks/').rstrip('.json')
-
 def version_compare(payload: list) -> str:
     # extract versions
     versions = [x['version'] for x in payload]
@@ -34,10 +31,10 @@ def check_version(name: str, version: str, database: str) -> str:
         current_ver = cur.execute(f'SELECT version from Application where name="{name}"').fetchone()[0]
         if parse_version(current_ver) > parse_version(version):
             cur.execute('UPDATE Application SET version=? WHERE name=?', (version, name))
-            return f"The release {current_ver} is revoked! Current version is {version}"
+            return {"status": f"The release {current_ver} is revoked! Current version is {version}"}
         elif parse_version(current_ver) < parse_version(version):
             cur.execute('UPDATE Application SET version=? WHERE name=?', (version, name))
-            return f"The new version {version} is available!"
+            return {"status": f"The new version {version} is available!"}
         else:
-            return f"Nothing changed current version is {current_ver}"
+            return {"status": f"Nothing changed current version is {current_ver}"}
 
