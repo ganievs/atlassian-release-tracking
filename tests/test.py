@@ -10,6 +10,8 @@ class Settings:
         str] = "https://raw.githubusercontent.com/ganievs/atlasian-release-tracking/main/data/jira-core-revoked.json"
     JIRA_SOFTWARE_URL: Final[
         str] = "https://raw.githubusercontent.com/ganievs/atlasian-release-tracking/main/data/jira-software.json"
+    INVALID_DATA_URL: Final[
+        str] = "https://raw.githubusercontent.com/ganievs/atlasian-release-tracking/main/data/invalid_data.json"
 
 
 client = TestClient(app)
@@ -63,3 +65,13 @@ def test_new_different_app():
                            })
     assert response.status_code == 201
     assert response.json() == {"status": "The new version 7.4.0 is available!"}
+
+
+def test_invalid_data():
+    response = client.post("/",
+                           json={
+                               "product": "jira-core",
+                               "url": Settings.INVALID_DATA_URL
+                           })
+    assert response.status_code == 400
+    assert response.json() == {"detail": "Invalid data"}
