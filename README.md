@@ -15,7 +15,7 @@ $ docker run --rm -ti -v data:/data -p 8000:8000 atlasian-release-tracking
 ```
 ## Run tests
 ```sh
-$ docker run --rm -ti -p 8000:8000 test bash -c "alembic upgrade head && pytest tests/test.py"
+$ docker run --rm -ti -p 8000:8000 atlasian-release-tracking bash -c "alembic upgrade head && pytest tests/test.py"
 ```
 ## Example request
 ### From cli
