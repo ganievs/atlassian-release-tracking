@@ -7,7 +7,6 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 ENV DATABASE_URL "/data/data.db"
 
-COPY Pipfile Pipfile.lock /src/
 COPY . /src/
 
 RUN pip install pipenv

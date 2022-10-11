@@ -1,4 +1,5 @@
 import json
+import sqlite3
 import urllib.request
 from pkg_resources import parse_version
 from app.db import db_ops
@@ -28,16 +29,17 @@ def version_compare(payload: list) -> str:
 
 
 def check_version(name: str, version: str, database: str) -> str:
-    with db_ops(database) as cur:
+    with sqlite3.connect(database) as cur:
         cur.execute('INSERT OR IGNORE INTO Application VALUES(?, ?)',
                     (name, "0.0.0"))
-    with db_ops(database) as cur:
+    with sqlite3.connect(database) as cur:
         current_ver = cur.execute(
             f'SELECT version from Application where name="{name}"').fetchone(
             )[0]
         if parse_version(current_ver) > parse_version(version):
             cur.execute('UPDATE Application SET version=? WHERE name=?',
                         (version, name))
+            cur.commit()
             return {
                 "status":
                 f"The release {current_ver} is revoked! Current version is {version}"
@@ -45,6 +47,7 @@ def check_version(name: str, version: str, database: str) -> str:
         elif parse_version(current_ver) < parse_version(version):
             cur.execute('UPDATE Application SET version=? WHERE name=?',
                         (version, name))
+            cur.commit()
             return {"status": f"The new version {version} is available!"}
         else:
             return {
