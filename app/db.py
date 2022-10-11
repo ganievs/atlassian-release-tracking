@@ -9,4 +9,3 @@ def db_ops(database: str):
     yield cur
     conn.commit()
     conn.close()
-
