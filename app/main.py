@@ -13,12 +13,12 @@ app = FastAPI()
 
 
 @app.get("/", status_code=200)
-def dummy():
+async def dummy():
     return {"status": "ok"}
 
 
 @app.post("/", status_code=201)
-def proceed_url(payload: Url):
+async def proceed_url(payload: Url):
     try:
         data = parse_url(payload.url)
     except Exception:
